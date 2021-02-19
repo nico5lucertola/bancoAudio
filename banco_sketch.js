@@ -18,7 +18,7 @@ function setup() {
     myCanvas.parent("centered_canvas");
     
     resetButton = createButton('reset!');
-    resetButton.position(600, 50);
+    
     resetButton.mousePressed(reset);
 
     var counter = 0;
@@ -51,6 +51,7 @@ function setup() {
     strokeWeight(0);
     text('do you know how to use a mixer?', 20, 20);
     
+    resetButton.position(windowWidth/2 - 90, 50);
 
     for(var k = 0; k < grid.length; k++) {
       grid[k].show();
