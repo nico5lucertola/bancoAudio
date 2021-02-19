@@ -58,6 +58,11 @@ function setup() {
       strokeWeight(2);
       fill(this.brightness);
       ellipse(this.x, this.y, w, w);
+
+      textSize(14);
+      strokeWeight(0);
+      fill(255);
+      text(this.id, this.x-5, this.y+5);
     }
 
     this.clicked = function() {
