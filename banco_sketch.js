@@ -13,7 +13,10 @@ var lastCell;
 var edges = [];
 
 function setup() {
-    createCanvas(1000, 1000);
+
+    var myCanvas = createCanvas(700, 700);
+    myCanvas.parent("centered_canvas");
+    
     resetButton = createButton('reset!');
     resetButton.position(600, 50);
     resetButton.mousePressed(reset);
