@@ -5,6 +5,8 @@ var grid = [];
 var selectedCells = [];
 var solution = [32, 33, 65, 78, 87];
 
+var feedback = 'click some buttons!';
+
 function setup() {
     createCanvas(1000, 1000);
 
@@ -23,6 +25,12 @@ function setup() {
   
   function draw() {
     background(0);
+
+    textSize(32);
+    fill(255);
+    strokeWeight(0);
+    text(feedback, 20, 600);
+    
 
     for(var k = 0; k < grid.length; k++) {
       grid[k].show();
@@ -47,6 +55,7 @@ function setup() {
       this.x = i * w * 1.3 + 50;
       this.y = j * w * 1.3 + 50;
       stroke(255);
+      strokeWeight(2);
       fill(this.brightness);
       ellipse(this.x, this.y, w, w);
     }
@@ -57,6 +66,9 @@ function setup() {
       if(d <= w/2) {
         this.brightness = 255;
         selectedCells.push(this.id);
+        //console.log(this.id);
+        //console.log(solution);
+        //console.log(selectedCells);
         checkSolution();
       }
     }
@@ -65,13 +77,20 @@ function setup() {
 
   function checkSolution() {
 
-    
+    selectedCells.sort();
 
+    if(selectedCells.length!= solution.length    ) {
+      feedback = 'you need to click 5 buttons';
+      return;
+    }
 
-
-      for(var p = 0; p < selectedCells; p++) {
-        for(var r = 0; r < solution; r++) {
-          if
-        }
+    for(var p = 0; p < solution.length; p++) {
+      if(solution[p] != selectedCells[p]) {
+        feedback = 'not the right buttons';
+        return;
       }
+    }
+
+    feedback = 'you got it!';
+     
   }
