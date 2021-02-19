@@ -140,7 +140,7 @@ function setup() {
 
   function checkSolution() {
 
-    selectedNumbers.sort();
+    //selectedNumbers.sort();
 
     if(selectedNumbers.length!= solution.length    ) {
       feedback = 'you need to click 5 buttons';
@@ -149,7 +149,7 @@ function setup() {
 
     for(var p = 0; p < solution.length; p++) {
       if(solution[p] != selectedNumbers[p]) {
-        feedback = 'not the right buttons';
+        feedback = 'not the right sequence';
         return;
       }
     }
