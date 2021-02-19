@@ -45,6 +45,11 @@ function setup() {
     fill(255);
     strokeWeight(0);
     text(feedback, 20, 600);
+
+    textSize(20);
+    fill(255, 204, 0);
+    strokeWeight(0);
+    text('do you know how to use a mixer?', 20, 20);
     
 
     for(var k = 0; k < grid.length; k++) {
