@@ -2,6 +2,7 @@ var cols = 10;
 var rows = 10;
 var w = 40;
 var grid = [];
+var selectedNumbers = [];
 var selectedCells = [];
 var solution = [32, 33, 65, 78, 87];
 
@@ -13,6 +14,9 @@ var edges = [];
 
 function setup() {
     createCanvas(1000, 1000);
+    resetButton = createButton('reset!');
+    resetButton.position(600, 50);
+    resetButton.mousePressed(reset);
 
     var counter = 0;
 
@@ -26,6 +30,10 @@ function setup() {
       }
     }
   }
+
+
+
+
   
   function draw() {
     background(0);
@@ -86,7 +94,8 @@ function setup() {
 
       if(d <= w/2) {
         this.brightness = 255;
-        selectedCells.push(this.id);
+        selectedNumbers.push(this.id);
+        selectedCells.push(this);
         checkSolution();
 
         if(lastCell != null) {
@@ -122,15 +131,15 @@ function setup() {
 
   function checkSolution() {
 
-    selectedCells.sort();
+    selectedNumbers.sort();
 
-    if(selectedCells.length!= solution.length    ) {
+    if(selectedNumbers.length!= solution.length    ) {
       feedback = 'you need to click 5 buttons';
       return;
     }
 
     for(var p = 0; p < solution.length; p++) {
-      if(solution[p] != selectedCells[p]) {
+      if(solution[p] != selectedNumbers[p]) {
         feedback = 'not the right buttons';
         return;
       }
@@ -138,4 +147,13 @@ function setup() {
 
     feedback = 'you got it!';
      
+  }
+
+  function reset() {
+    for(var i = 0; i < selectedCells.length; i++) {
+      lastCell = null;
+      selectedCells[i].brightness = 0;
+      edges = [];
+      selectedNumbers = [];
+    }
   }
