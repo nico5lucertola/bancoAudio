@@ -7,6 +7,10 @@ var solution = [32, 33, 65, 78, 87];
 
 var feedback = 'click some buttons!';
 
+var lastCell;
+
+var edges = [];
+
 function setup() {
     createCanvas(1000, 1000);
 
@@ -35,6 +39,13 @@ function setup() {
     for(var k = 0; k < grid.length; k++) {
       grid[k].show();
     }
+
+    if(edges.length > 0) {
+      for(var l = 0; l < edges.length; l++) {
+        edges[l].show();
+      }
+    }
+    
   }
 
   function mousePressed() {
@@ -42,6 +53,10 @@ function setup() {
       grid[k].clicked();
     }
   }
+
+
+
+
 
   function Cell(i, j) {
 
@@ -66,19 +81,44 @@ function setup() {
     }
 
     this.clicked = function() {
+
       var d = dist(mouseX, mouseY, this.x, this.y);
 
       if(d <= w/2) {
         this.brightness = 255;
         selectedCells.push(this.id);
-        //console.log(this.id);
-        //console.log(solution);
-        //console.log(selectedCells);
         checkSolution();
+
+        if(lastCell != null) {
+          var newEdge = new Edge(lastCell, this);
+          edges.push(newEdge);
+        }
+        
+
+        lastCell = this;
       }
     }
 
   }
+
+
+  function Edge(firstCell, secondCell) {
+
+    this.sX = firstCell.x;
+    this.sY = firstCell.y;
+    this.eX = secondCell.x;
+    this.eY = secondCell.y;
+
+    this.show = function() {
+      
+      stroke(255, 204, 0);
+      strokeWeight(4);
+      line(this.sX, this.sY, this.eX, this.eY);
+    }
+    
+
+  }
+  
 
   function checkSolution() {
 
