@@ -4,11 +4,15 @@
     <script src="banco_sketch.js"></script>
   </head>
   <body>
+    <div id="centered_upper">
+      <p class="mixer_title">Can you use a mixer?</p>
+      <button id="reset_btn" onclick="reset()">Reset!</button>
+    </div>
     <div id="centered_canvas"></div>
   </body>
   <style>
     body {
-      background-color: black;
+      background-color: white;
     }
 
     #centered_canvas {
@@ -16,8 +20,22 @@
       width: 700px;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 100px;
+      margin-top: 50px;
       position: relative;
+    }
+
+    #centered_upper {
+      height: 700px;
+      width: 700px;
+      height: 50px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mixer_title {
+      color: black;
+      font-size: 1.6rem;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
   </style>

@@ -1,35 +1,38 @@
 var cols = 10;
 var rows = 10;
-var w = 40;
-var grid = [];
-var selectedNumbers = [];
-var selectedCells = [];
-var solution = [32, 33, 65, 78, 87];
+var cellWidth = 34;
+var yellow;
 
+var solution = [32, 33, 65, 78, 87];
+var grid = [];
+
+var selectedCells = [];
+var lastCell;
+var edges = [];
 var feedback = 'click some buttons!';
 
-var lastCell;
 
-var edges = [];
+
+
 
 function setup() {
 
-    var myCanvas = createCanvas(700, 700);
+    var myCanvas = createCanvas(800, 800);
     myCanvas.parent("centered_canvas");
     
-    resetButton = createButton('reset!');
-    
-    resetButton.mousePressed(reset);
 
-    var counter = 0;
+    var cellNumber = 0;
+    yellow = color(255, 204, 0)
 
+    //Create grid of cells
     for(var i = 0; i < rows; i++) {
-      for(var j = 0; j < cols; j++) {
-        var cell = new Cell(i, j);
-        cell.id = counter;
-        grid.push(cell);
 
-        counter++;
+      for(var j = 0; j < cols; j++) {
+
+        var cell = new Cell(i, j);
+        cell.id = cellNumber;
+        grid.push(cell);
+        cellNumber++;
       }
     }
   }
@@ -39,19 +42,15 @@ function setup() {
 
   
   function draw() {
-    background(0);
 
+    background(255);
+
+    //Draw feedback text
     textSize(32);
-    fill(255);
+    fill(yellow);
     strokeWeight(0);
-    text(feedback, 20, 600);
+    text(feedback, 16, 700);
 
-    textSize(20);
-    fill(255, 204, 0);
-    strokeWeight(0);
-    text('do you know how to use a mixer?', 20, 20);
-    
-    resetButton.position(windowWidth/2 - 90, 50);
 
     for(var k = 0; k < grid.length; k++) {
       grid[k].show();
@@ -64,7 +63,7 @@ function setup() {
     }
 
     if(lastCell != null && edges.length <= 3) {
-      stroke(255, 204, 0);
+      stroke(yellow);
       strokeWeight(4);
       line(lastCell.x, lastCell.y, mouseX, mouseY);
     }
@@ -92,28 +91,29 @@ function setup() {
     this.id;
 
     this.brightness = 0;
+    this.strokeBrightness = 0;
 
     this.show = function() {
-      this.x = i * w * 1.3 + 50;
-      this.y = j * w * 1.3 + 50;
-      stroke(255);
-      strokeWeight(2);
+      this.x = i * cellWidth * 1.8 + 50;
+      this.y = j * cellWidth * 1.8 + 50;
+
+      stroke(this.strokeBrightness);
       fill(this.brightness);
-      ellipse(this.x, this.y, w, w);
+      strokeWeight(2);
+      ellipse(this.x, this.y, cellWidth, cellWidth);
 
       textSize(14);
       strokeWeight(0);
-      fill(255);
-      text(this.id, this.x-5, this.y+5);
+      fill(0);
+      text(this.id, this.x-cellWidth+12, this.y-cellWidth+12);
     }
 
     this.clicked = function() {
 
       var d = dist(mouseX, mouseY, this.x, this.y);
 
-      if(d <= w/2) {
-        this.brightness = 255;
-        selectedNumbers.push(this.id);
+      if(d <= cellWidth/2) {
+        this.brightness = color(yellow);
         selectedCells.push(this);
         checkSolution();
 
@@ -142,7 +142,7 @@ function setup() {
 
     this.show = function() {
       
-      stroke(255, 204, 0);
+      stroke(yellow);
       strokeWeight(4);
       line(this.sX, this.sY, this.eX, this.eY);
     }
@@ -153,15 +153,13 @@ function setup() {
 
   function checkSolution() {
 
-    //selectedNumbers.sort();
-
-    if(selectedNumbers.length!= solution.length    ) {
+    if(selectedCells.length!= solution.length    ) {
       feedback = 'you need to click 5 buttons';
       return;
     }
 
     for(var p = 0; p < solution.length; p++) {
-      if(solution[p] != selectedNumbers[p]) {
+      if(solution[p] != selectedCells[p].id) {
         feedback = 'not the right sequence';
         return;
       }
@@ -179,6 +177,6 @@ function setup() {
       lastCell = null;
       selectedCells[i].brightness = 0;
       edges = [];
-      selectedNumbers = [];
     }
+    selectedCells = [];
   }
