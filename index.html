@@ -4,38 +4,92 @@
     <script src="banco_sketch.js"></script>
   </head>
   <body>
-    <div id="centered_upper">
-      <p class="mixer_title">Can you use a mixer?</p>
-      <button id="reset_btn" onclick="reset()">Reset!</button>
-    </div>
-    <div id="centered_canvas"></div>
+
+    <div id="whole_container">
+      <div id="side">
+        <div id="side_title_container">
+          <p class="mixer_title">Can you use a mixer?</p>
+          <p class="description">This is a brief exercise to use a general kind of studio mixer. Will you be able to guess the right sequence? <br>Hint: it's 32-33-65-78-87.</p>
+        </div>
+        
+        <p class="description">Good luck!</p>
+      </div>
+
+      <div id="centered">
+
+        <div id="centered_canvas"><button id="reset_btn" onclick="reset()">Reset!</button></div>
+        
+      </div>
+  </div>
+
+
   </body>
   <style>
+
+    @font-face {
+      font-family: apfelBrukt;
+      src: url(ApfelGrotezk-Brukt.otf);
+    }    
+    @font-face {
+      font-family: apfel;
+      src: url(ApfelGrotezk-Regular.otf);
+    }   
+    
     body {
       background-color: white;
+      vertical-align: top;
+    }
+
+    #side {
+      display: inline-block;
+      width: 30vw;
+      vertical-align: top;
+      padding-left: 20px;
+    }
+
+    #side_title_container {
+      width: 70%;
+      
+    }
+
+    #centered {
+      display: inline-block;
     }
 
     #centered_canvas {
       height: 700px;
       width: 700px;
-      margin-left: auto;
-      margin-right: auto;
       margin-top: 50px;
-      position: relative;
-    }
-
-    #centered_upper {
-      height: 700px;
-      width: 700px;
-      height: 50px;
-      margin-left: auto;
-      margin-right: auto;
+      vertical-align: bottom;
     }
 
     .mixer_title {
       color: black;
-      font-size: 1.6rem;
-      font-family: Arial, Helvetica, sans-serif;
+      font-size: 6rem;
+      font-family: apfelBrukt;
+      line-height: 5.4rem;
+      margin-bottom: 50px;
+    }
+
+    .description {
+      font-family: apfel;
+      font-size: 1rem;
+    }
+
+    #reset_btn {
+      background-color: white;
+      border-radius:2em;
+      width: 80px;
+      height: 40px;
+      outline: none;
+      box-shadow: none;
+      margin-left: 22px;
+      font-family: apfelBrukt;
+    }
+
+    #reset_btn:hover {
+      background-color: rgb(255, 204, 0);
+      
     }
 
   </style>

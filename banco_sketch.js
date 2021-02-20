@@ -1,7 +1,9 @@
 var cols = 10;
 var rows = 10;
 var cellWidth = 34;
+
 var yellow;
+var apfelFont;
 
 var solution = [32, 33, 65, 78, 87];
 var grid = [];
@@ -9,10 +11,13 @@ var grid = [];
 var selectedCells = [];
 var lastCell;
 var edges = [];
-var feedback = 'click some buttons!';
+var feedback = '>> Go ahead and click some buttons!';
 
 
 
+function preload() {
+  apfelFont = loadFont('ApfelGrotezk-Regular.otf');
+}
 
 
 function setup() {
@@ -22,7 +27,8 @@ function setup() {
     
 
     var cellNumber = 0;
-    yellow = color(255, 204, 0)
+    yellow = color(255, 204, 0);
+    textFont(apfelFont);
 
     //Create grid of cells
     for(var i = 0; i < rows; i++) {
@@ -46,8 +52,8 @@ function setup() {
     background(255);
 
     //Draw feedback text
-    textSize(32);
-    fill(yellow);
+    textSize(18);
+    fill(0);
     strokeWeight(0);
     text(feedback, 16, 700);
 
@@ -154,18 +160,18 @@ function setup() {
   function checkSolution() {
 
     if(selectedCells.length!= solution.length    ) {
-      feedback = 'you need to click 5 buttons';
+      feedback = '>> You need to click 5 buttons!';
       return;
     }
 
     for(var p = 0; p < solution.length; p++) {
       if(solution[p] != selectedCells[p].id) {
-        feedback = 'not the right sequence';
+        feedback = '>> Not the right sequence! Click "Reset" and restart';
         return;
       }
     }
 
-    feedback = 'you got it!';
+    feedback = '>> You got it!';
      
   }
 
