@@ -62,8 +62,18 @@ function setup() {
         edges[l].show();
       }
     }
+
+    if(lastCell != null && edges.length <= 3) {
+      stroke(255, 204, 0);
+      strokeWeight(4);
+      line(lastCell.x, lastCell.y, mouseX, mouseY);
+    }
     
   }
+
+
+
+
 
   function mousePressed() {
     for(var k = 0; k < grid.length; k++) {
@@ -120,6 +130,9 @@ function setup() {
   }
 
 
+
+
+
   function Edge(firstCell, secondCell) {
 
     this.sX = firstCell.x;
@@ -157,6 +170,9 @@ function setup() {
     feedback = 'you got it!';
      
   }
+
+
+  
 
   function reset() {
     for(var i = 0; i < selectedCells.length; i++) {
