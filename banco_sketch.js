@@ -4,6 +4,7 @@ var cellWidth = 34;
 
 var yellow;
 var apfelFont;
+//var selectSound;
 
 var solution = [32, 33, 65, 78, 87];
 var grid = [];
@@ -17,6 +18,7 @@ var feedback = '>> Go ahead and click some buttons!';
 //load fonts
 function preload() {
   apfelFont = loadFont('ApfelGrotezk-Regular.otf');
+  //selectSound = loadSound('select.wav');
 }
 
 
@@ -101,6 +103,9 @@ function setup() {
     this.brightness = 0;
     this.strokeBrightness = 0;
 
+    this.selected = false;
+
+
     //Function that actually draws each cell
     this.show = function() {
 
@@ -127,9 +132,17 @@ function setup() {
       var d = dist(mouseX, mouseY, this.x, this.y);
 
       //Comparing d to the circle radius
-      if(d <= cellWidth/2) {
+      if(d <= cellWidth / 2) {
+        console.log(this.selected);
 
+        //Avoid clicking the same cell twice
+        if(this.selected == true) {
+          return;
+        }
+
+        //selectSound.play();
         this.brightness = color(yellow);
+        this.selected = true;
         selectedCells.push(this);
         checkSolution();
 
@@ -142,6 +155,7 @@ function setup() {
         }
 
         lastCell = this;
+        
       }
     }
 
@@ -197,10 +211,12 @@ function setup() {
   function reset() {
 
     for(var i = 0; i < selectedCells.length; i++) {
-      lastCell = null;
+      
       selectedCells[i].brightness = 0;
-      edges = [];
+      selectedCells[i].selected = false;
     }
-    
+
+    edges = [];
+    lastCell = null;
     selectedCells = [];
   }
