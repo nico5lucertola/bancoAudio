@@ -73,9 +73,14 @@ function setup() {
 
     //Draw the edge preview on mouseposition
     if(lastCell != null && edges.length <= 3) {
+
+      var distance = dist(lastCell.x, lastCell.y, mouseX, mouseY);
+      var bezierOffset = map(distance, 0, 800, 25, 70);
+
       stroke(yellow);
       strokeWeight(4);
-      line(lastCell.x, lastCell.y, mouseX, mouseY);
+      noFill();
+      bezier(lastCell.x, lastCell.y, lastCell.x +bezierOffset, lastCell.y +bezierOffset, mouseX -bezierOffset, mouseY -bezierOffset, mouseX, mouseY, 0, 0, 0,0);
     }
     
   }
